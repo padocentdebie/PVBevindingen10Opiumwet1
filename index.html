@@ -3,37 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesmodule: De Opiumwet in de Praktijk</title>
+    <title>Module Opiumwet - Operationele Bevoegdheden</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 20px auto; padding: 0 20px; }
-        .instruction-box { background-color: #e8f4f8; border-left: 6px solid #2980b9; padding: 20px; margin: 20px 0; border-radius: 4px; }
-        .instruction-box h2 { margin-top: 0; color: #2980b9; }
-        .competence-list { list-style-type: none; padding: 0; }
-        .competence-list li { margin-bottom: 10px; padding-left: 25px; position: relative; }
-        .competence-list li::before { content: '👮'; position: absolute; left: 0; }
-        .law-ref { font-weight: bold; color: #c0392b; }
+        /* Basisstijl */
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f0f2f5; }
+        .container { background: white; padding: 40px; border-radius: 2px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); min-height: 500px; }
+        .hidden { display: none; }
+        
+        /* Koppen */
+        h1 { border-bottom: 2px solid #003082; padding-bottom: 10px; color: #003082; font-size: 24px; }
+        h2 { color: #003082; font-size: 20px; margin-top: 30px; }
+
+        /* Login */
+        .login-box { text-align: center; padding: 50px 0; }
+        select { width: 100%; max-width: 300px; padding: 10px; margin: 20px 0; border: 1px solid #ccc; border-radius: 0; }
+        
+        /* Informatievakken */
+        .info-box { background-color: #f9f9f9; border-left: 5px solid #003082; padding: 20px; margin: 20px 0; }
+        .law-text { font-style: italic; color: #444; }
+        
+        /* Puzzel */
+        .puzzle-grid { display: flex; gap: 20px; margin-top: 20px; }
+        .col { flex: 1; background: #fff; border: 1px solid #ccc; padding: 15px; min-height: 250px; }
+        .col h3 { text-align: center; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .drug-card { background: #f0f2f5; border: 1px solid #d1d1d1; padding: 12px; margin: 10px 0; cursor: move; text-align: center; font-weight: bold; }
+        
+        /* Knoppen */
+        .btn { background-color: #003082; color: white; padding: 12px 24px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .btn:hover { background-color: #00205b; }
+        .btn-option { display: block; width: 100%; padding: 15px; margin: 10px 0; text-align: left; background: #fff; border: 1px solid #ccc; cursor: pointer; }
+        .btn-option:hover { background: #f0f2f5; }
+
+        .feedback { margin-top: 20px; padding: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <h1>Les: Handhaving van de Opiumwet</h1>
-    <p>In deze les leer je hoe de theorie van de Opiumwet vertaald wordt naar de dagelijkse politiepraktijk.</p>
-
-    <div class="instruction-box">
-        <h2>Informatievak: Politiebevoegdheden</h2>
-        <p>Op basis van de <strong>Opiumwet</strong> en aanvullende wetgeving heeft een opsporingsambtenaar de volgende bevoegdheden:</p>
-        
-        <ul class="competence-list">
-            <li><strong>Toegang tot plaatsen:</strong> Opsporingsambtenaren hebben toegang tot alle plaatsen waar redelijkerwijs vermoed kan worden dat er overtredingen van de Opiumwet plaatsvinden (<span class="law-ref">Art. 9 lid 1 Opiumwet</span>). <em>Let op: exclusief woningen zonder toestemming/machtiging.</em></li>
-            
-            <li><strong>Inbeslagname:</strong> Het recht om alle voorwerpen die dienen tot overtuiging (zoals drugs, weegschalen, verpakkingsmateriaal) in beslag te nemen (<span class="law-ref">Art. 9 lid 3 Opiumwet</span>).</li>
-            
-            <li><strong>Onderzoek aan kleding/lichaam:</strong> Bij ernstige bezwaren kan een verdachte aan de kleding worden onderzocht. Voor onderzoek <em>in</em> het lichaam is een bevel van de (H)OvJ nodig.</li>
-            
-            <li><strong>Stoppen en controleren:</strong> De bevoegdheid om vervoermiddelen te stoppen en de lading te onderzoeken als er een redelijk vermoeden is van aanwezigheid van drugs.</li>
-        </ul>
-        <p><em>Kernpunt: Voor de uitoefening van deze bevoegdheden is vaak een 'redelijk vermoeden van schuld' vereist, behalve bij specifieke controlebevoegdheden.</em></p>
+<div class="container">
+    <div id="login-screen" class="login-box">
+        <h1>Toegang Onderwijsmodule</h1>
+        <p>Selecteer uw NATO-klas voor toegang tot de casuïstiek:</p>
+        <select id="nato-class">
+            <option value="">-- Maak een keuze --</option>
+            <option value="Alpha">Alpha</option>
+            <option value="Bravo">Bravo</option>
+            <option value="Charlie">Charlie</option>
+            <option value="Delta">Delta</option>
+            <option value="Echo">Echo</option>
+            <option value="Foxtrot">Foxtrot</option>
+            <option value="Golf">Golf</option>
+            <option value="Hotel">Hotel</option>
+            <option value="Juliet">Juliet</option>
+            <option value="Kilo">Kilo</option>
+            <option value="Lima">Lima</option>
+            <option value="Mike">Mike</option>
+        </select>
+        <br>
+        <button class="btn" onclick="startModule()">Start Module</button>
     </div>
+
+    <div id="screen-theorie" class="hidden">
+        <h1 id="header-class"></h1>
+        <p>Deze module behandelt de bevoegdheden op basis van de Opiumwet. Voor het opstellen van een rechtmatig PV van Bevindingen is kennis van Artikel 9 essentieel.</p>
+        
+        <div class="info-box">
+            <h2>Opsporingsbevoegdheden (Art. 9 Opiumwet)</h2>
+            <ul>
+                <li><strong>Toegang tot plaatsen:</strong> Opsporingsambtenaren hebben toegang tot alle plaatsen waar redelijkerwijs vermoed kan worden dat overtredingen van de Opiumwet plaatsvinden.</li>
+                <li><strong>Onderzoek aan de kleding:</strong> Indien er ernstige bezwaren zijn tegen een persoon, kan deze aan de kleding worden onderzocht (Art. 9 lid 2).</li>
+                <li><strong>Inbeslagneming:</strong> Voorwerpen die dienen tot overtuiging kunnen direct in beslag worden genomen (Art. 9 lid 3).</li>
+            </ul>
+        </div>
+        <button class="btn" onclick="nextScreen('screen-theorie', 'screen-puzzel')">Volgende: Wetgevingspuzzel</button>
+    </div>
+
+    <div id="screen-puzzel" class="hidden">
+        <h1>Wetgevingspuzzel: Lijst I vs Lijst II</h1>
+        <p>Sleep de middelen naar de juiste juridische categorie.</p>
+        
+        <div class="puzzle-grid">
+            <div class="col" id="col-lijst1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Lijst I (Harddrugs)</h3>
+            </div>
+            <div class="col" id="inventory" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Middelen</h3>
+                <div class="drug-card" draggable="true" ondragstart="drag(event)" id="coc" data-target="col-lijst1">Cocaïne</div>
+                <div class="drug-card" draggable="true" ondragstart="drag(event)" id="can" data-target="col-lijst2">Cannabis</div>
+                <div class="drug-card" draggable="true" ondragstart="drag(event)" id="xtc" data-target="col-lijst1">MDMA (XTC)</div>
+                <div class="drug-card" draggable="true" ondragstart="drag(event)" id="her" data-target="col-lijst1">Heroïne</div>
+                <div class="drug-card" draggable="true" ondragstart="drag(event)" id="ben" data-target="col-lijst2">Benzodiazepinen</div>
+            </div>
+            <div class="col" id="col-lijst2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Lijst II (Softdrugs)</h3>
+            </div>
+        </div>
+        <div id="puzzle-feedback" class="feedback"></div>
+        <button class="btn" onclick="checkPuzzle()">Controleer</button>
+        <button id="btn-to-casus" class="btn hidden" onclick="nextScreen('screen-puzzel', 'screen-casus')">Naar de Casus</button>
+    </div>
+
+    <div id="screen-casus" class="hidden">
+        <h1>Casus-Analyse: De Kademuur</h1>
+        <div class="info-box">
+            <p><strong>Situatiebeschrijving:</strong></p>
+            <p>Het is 23:45 uur. Je surveilleert in een opvallend dienstvoertuig. Je rijdt op de kade, <strong>ter</strong> hoogte van de aanlegsteiger voor de pleziervaart. Je ziet een zwarte personenauto geparkeerd staan in een donkere hoek. Zodra je koplampen het voertuig verlichten, zie je de bijrijder direct wegduiken.</p>
+            <p class="law-text">"Ik nam waar dat de bijrijder met zijn rechterhand een snelle beweging maakte <strong>naar</strong> de ruimte onder de passagiersstoel. Bij het openen van het portier rook ik de geur van onverbrande hennep."</p>
+        </div>
+
+        <h3>Vraag: Welke juridische grondslag is juist voor het onderzoek aan de kleding?</h3>
+        <button class="btn-option" onclick="checkCasus(false)">A. Artikel 8 Politiewet (Veiligheidsfouillering)</button>
+        <button class="btn-option" onclick="checkCasus(true)">B. Artikel 9 lid 2 Opiumwet (Onderzoek aan de kleding)</button>
+        
+        <div id="casus-feedback" class="feedback"></div>
+        <button id="btn-final" class="btn hidden" onclick="nextScreen('screen-casus', 'screen-final')">Afronden</button>
+    </div>
+
+    <div id="screen-final" class="hidden">
+        <h1>Resultaat en PV-Instructie</h1>
+        <div class="info-box" style="border-color: #27ae60;">
+            <p>De module is succesvol afgerond door klas <span class="class-label"></span>.</p>
+        </div>
+        <h3>Aandachtspunten PV van Bevindingen:</h3>
+        <p>Gebruik in de verslaglegging de geoefende terminologie:</p>
+        <ul>
+            <li>Gebruik <strong>ter</strong> voor exacte locatiebepaling (ter hoogte van de aanlegsteiger).</li>
+            <li>Gebruik <strong>naar</strong> voor het omschrijven van gerichte handelingen (bewoog naar de vloer).</li>
+            <li>Vermeld altijd expliciet dat de geur van hennep de grondslag vormde voor de verdenking van de Opiumwet.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    let selectedClass = "";
+
+    function startModule() {
+        selectedClass = document.getElementById('nato-class').value;
+        if (!selectedClass) return alert("Selecteer een klas.");
+        document.getElementById('header-class').innerText = "Klas: " + selectedClass;
+        document.querySelectorAll('.class-label').forEach(el => el.innerText = selectedClass);
+        nextScreen('login-screen', 'screen-theorie');
+    }
+
+    function nextScreen(hideId, showId) {
+        document.getElementById(hideId).classList.add('hidden');
+        document.getElementById(showId).classList.remove('hidden');
+    }
+
+    /* Puzzel Logica */
+    function allowDrop(ev) { ev.preventDefault(); }
+    function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        if (ev.target.classList.contains('col')) {
+            ev.target.appendChild(document.getElementById(data));
+        }
+    }
+
+    function checkPuzzle() {
+        const items = document.querySelectorAll('.drug-card');
+        let allCorrect = true;
+        items.forEach(item => {
+            if (item.parentElement.id !== item.getAttribute('data-target')) {
+                allCorrect = false;
+                item.style.border = "2px solid #c0392b";
+            } else {
+                item.style.border = "2px solid #27ae60";
+            }
+        });
+        
+        const fb = document.getElementById('puzzle-feedback');
+        if (allCorrect && document.getElementById('inventory').children.length === 1) {
+            fb.innerText = "Correct geclassificeerd.";
+            fb.style.color = "#27ae60";
+            document.getElementById('btn-to-casus').classList.remove('hidden');
+        } else {
+            fb.innerText = "Onjuiste indeling aanwezig.";
+            fb.style.color = "#c0392b";
+        }
+    }
+
+    /* Casus Logica */
+    function checkCasus(correct) {
+        const fb = document.getElementById('casus-feedback');
+        if (correct) {
+            fb.innerText = "Correct. Artikel 9 lid 2 Opiumwet is de juiste grondslag bij een drug-gerelateerde verdenking.";
+            fb.style.color = "#27ae60";
+            document.getElementById('btn-final').classList.remove('hidden');
+        } else {
+            fb.innerText = "Onjuist. Artikel 8 Politiewet is voor veiligheid, niet voor opsporing van drugs.";
+            fb.style.color = "#c0392b";
+        }
+    }
+</script>
 
 </body>
 </html>
