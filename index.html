@@ -13,115 +13,95 @@
         /* Admin & Leaderboard */
         #admin-panel { background: #333; color: white; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .leaderboard { background: #fff; border: 2px solid var(--police-blue); padding: 15px; border-radius: 8px; margin-top: 20px; }
-        .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 10px; }
-        .score-row { background: #f8f9fa; padding: 8px; border: 1px solid #eee; border-radius: 4px; text-align: center; }
-        .score-row strong { color: var(--police-blue); display: block; font-size: 1.2em; }
+        .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 10px; }
+        .score-row { background: #f8f9fa; padding: 8px; border: 1px solid #eee; border-radius: 4px; text-align: center; font-size: 0.9em; }
+        .score-row strong { color: var(--police-blue); display: block; font-size: 1.1em; }
 
-        h1, h2 { color: var(--police-blue); border-bottom: 3px solid var(--police-blue); padding-bottom: 5px; }
+        h1, h2, h3 { color: var(--police-blue); border-bottom: 3px solid var(--police-blue); padding-bottom: 5px; }
+        .wettekst { background: #fffde7; padding: 20px; border: 1px solid #ffe57f; font-size: 0.9em; line-height: 1.6; margin: 20px 0; max-height: 400px; overflow-y: auto; }
         .btn { background: var(--police-blue); color: white; padding: 12px 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-transform: uppercase; margin: 5px; }
         .btn-next-drug { background: var(--gold); color: #000; }
-        .btn-reset { background: var(--wrong); font-size: 10px; }
         
-        /* Kwis Stijl */
+        /* Kwis & Chaos Stijl */
         .puzzle-grid { display: flex; gap: 20px; margin: 20px 0; align-items: flex-start; }
         .col { flex: 1; background: #eef2f7; border: 2px dashed #cbd5e1; padding: 15px; min-height: 250px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; }
-        #active-drug-area { flex: 1; text-align: center; display: flex; justify-content: center; }
-        .drug-card { background: white; border: 2px solid var(--police-blue); padding: 20px; cursor: move; font-weight: bold; border-radius: 8px; font-size: 1.1em; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 280px; }
+        .drug-card { background: white; border: 2px solid var(--police-blue); padding: 20px; cursor: move; font-weight: bold; border-radius: 8px; width: 280px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-        /* PV Chaos & Evidence */
         .oc-melding { background: #1a1a1a; color: #00ff00; padding: 15px; font-family: monospace; margin-bottom: 20px; border-left: 5px solid var(--gold); }
         .evidence-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
-        .evidence-grid img { width: 100%; border-radius: 4px; border: 1px solid #ccc; transition: 0.3s; }
+        .evidence-grid img { width: 100%; border-radius: 4px; border: 1px solid #ccc; }
         
-        .astma-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
-        .chaos-box { background: #f8f9fa; padding: 15px; border: 1px solid #ddd; max-height: 600px; overflow-y: auto; }
+        .astma-layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+        .chaos-box { background: #f8f9fa; padding: 15px; border: 1px solid #ddd; }
         .drag-item { background: white; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; cursor: grab; border-left: 5px solid var(--police-blue); }
-        textarea { width: 100%; height: 70px; margin-top: 5px; border: 1px solid #ccc; font-size: 12px; resize: none; padding: 5px; box-sizing: border-box; }
-        .drop-zone { background: #fff; border: 2px solid #ddd; padding: 10px; margin-bottom: 10px; min-height: 100px; }
-        .zone-header { font-weight: bold; font-size: 12px; color: var(--police-blue); margin-bottom: 5px; text-transform: uppercase; }
+        textarea { width: 100%; height: 80px; margin-top: 5px; border: 1px solid #ccc; font-size: 13px; font-family: inherit; padding: 5px; box-sizing: border-box; }
+        .drop-zone { background: #fff; border: 2px solid #ddd; padding: 10px; margin-bottom: 10px; min-height: 110px; }
+        .zone-header { font-weight: bold; font-size: 11px; color: var(--police-blue); margin-bottom: 5px; }
         .feed-card { border-left: 6px solid var(--police-blue); background: #fff; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
 
 <div id="admin-panel" class="hidden">
-    <strong>👨‍🏫 REGIEPANEEL</strong>
-    <div>
-        <button class="btn btn-next-drug" onclick="triggerNextDrug()">🔓 VOLGENDE DRUG VRIJGEVEN</button>
-        <button class="btn btn-reset" onclick="location.reload()">RESET MODULE</button>
-    </div>
+    <strong>👨‍🏫 DOCENTEN REGIE</strong>
+    <button class="btn btn-next-drug" onclick="triggerNextDrug()">🔓 VOLGENDE DRUG VRIJGEVEN</button>
+    <button class="btn" style="background:#dc3545; font-size:10px;" onclick="location.reload()">RESET ALLES</button>
 </div>
 
 <div class="container">
     <div id="screen-1" style="text-align: center;">
         <h1>Toegang Politiesysteem</h1>
-        <p>Selecteer uw rol of klas om te beginnen:</p>
-        <select id="nato-class" style="padding: 10px; width: 280px; margin-bottom: 10px;">
-            <option value="">-- Maak een keuze --</option>
-            <option value="DOCENT">👨‍🏫 DOCENT / ADMIN</option>
-            <optgroup label="NATO Klassen">
-                <option value="Alpha">Alpha</option>
-                <option value="Bravo">Bravo</option>
-                <option value="Charlie">Charlie</option>
-                <option value="Delta">Delta</option>
-                <option value="Echo">Echo</option>
-                <option value="Foxtrot">Foxtrot</option>
-                <option value="Golf">Golf</option>
-                <option value="Hotel">Hotel</option>
-                <option value="Juliet">Juliet</option>
-                <option value="Kilo">Kilo</option>
-                <option value="Lima">Lima</option>
-                <option value="Mike">Mike</option>
-            </optgroup>
-        </select><br>
+        <div style="margin-bottom: 20px;">
+            <input type="text" id="student-name" placeholder="Uw voornaam" style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 4px;"><br><br>
+            <select id="nato-class" style="padding: 10px; width: 272px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="">-- Selecteer Klas --</option>
+                <option value="DOCENT">👨‍🏫 DOCENT / ADMIN</option>
+                <option value="Alpha">Alpha</option><option value="Bravo">Bravo</option>
+                <option value="Charlie">Charlie</option><option value="Delta">Delta</option>
+                <option value="Echo">Echo</option><option value="Foxtrot">Foxtrot</option>
+                <option value="Golf">Golf</option><option value="Hotel">Hotel</option>
+                <option value="Juliet">Juliet</option><option value="Kilo">Kilo</option>
+                <option value="Lima">Lima</option><option value="Mike">Mike</option>
+            </select>
+        </div>
         <button class="btn" onclick="login()">Inloggen</button>
     </div>
 
     <div id="screen-2" class="hidden">
-        <h1>Bevoegdheden Art. 9 Opiumwet</h1>
-        <div style="background: white; padding: 20px; border-left: 10px solid var(--police-blue); margin-bottom: 20px;">
-            <ul>
-                <li><strong>Lid 1:</strong> Toegang tot plaatsen en vervoermiddelen.</li>
-                <li><strong>Lid 2:</strong> Onderzoek aan kleding (bij ernstige bezwaren).</li>
-                <li><strong>Lid 3:</strong> Inbeslagneming van voorwerpen.</li>
-            </ul>
+        <h1>Artikel 9 Opiumwet</h1>
+        <div class="wettekst">
+            <strong>Lid 1:</strong> De opsporingsambtenaren hebben, voor zover dat redelijkerwijs voor de vervulling van hun taak nodig is, toegang tot:
+            a. de plaatsen waar een middel als bedoeld in lijst I of II wordt bereid, bewerkt, verwerkt, te koop aangeboden, verkocht, afgeleverd, verstrekt, vervoerd, vervaardigd of bewaard;
+            b. de vervoermiddelen waarmee een zodanig middel wordt vervoerd of waarin een zodanig middel aanwezig is of naar redelijk vermoeden aanwezig is.<br><br>
+            <strong>Lid 2:</strong> Zij zijn bevoegd tot schouwing en opneming van de middelen, alsmede tot het nemen van monsters daarvan. Zij zijn bevoegd de daarop betrekking hebbende bescheiden en andere gegevensdragers te vorderen ter inzage en daarvan afschriften of uittreksels te maken of de gegevensdragers voor dat doel voor korte tijd mee te nemen.<br><br>
+            <strong>Lid 3:</strong> Zij zijn te allen tijde bevoegd tot inbeslagneming van daarvoor vatbare voorwerpen. Zij kunnen daartoe de uitlevering vorderen.<br><br>
+            <strong>Lid 4:</strong> In de woningen treden zij tegen de wil van de bewoner niet binnen dan op vertoon van een schriftelijke last of in aanwezigheid van een hulpofficier van justitie.
         </div>
-        <button class="btn" onclick="goToScreen(3)">Naar de Live Kwis →</button>
+        <button class="btn" onclick="goToScreen(3)">Start Live Kwis →</button>
     </div>
 
     <div id="screen-3" class="hidden">
-        <h1>Live Opiumkwis</h1>
-        <p id="kwis-status">Wacht op instructies van de docent...</p>
-        
+        <h1>Opiumkwis</h1>
+        <p id="kwis-status">Wacht op de docent...</p>
         <div class="puzzle-grid">
-            <div class="col" id="lijst-1" ondrop="dropKwis(event)" ondragover="allowDrop(event)">
-                <div class="zone-header">LIJST I (HARDDRUGS)</div>
-            </div>
+            <div class="col" id="lijst-1" ondrop="dropKwis(event)" ondragover="allowDrop(event)"><div class="zone-header">LIJST I</div></div>
             <div id="active-drug-area"></div>
-            <div class="col" id="lijst-2" ondrop="dropKwis(event)" ondragover="allowDrop(event)">
-                <div class="zone-header">LIJST II (SOFTDRUGS)</div>
-            </div>
+            <div class="col" id="lijst-2" ondrop="dropKwis(event)" ondragover="allowDrop(event)"><div class="zone-header">LIJST II</div></div>
         </div>
-
         <div class="leaderboard">
-            <h3>🏆 Real-time Scorebord</h3>
-            <div id="leaderboard-content" class="score-grid">
-                </div>
+            <h3>🏆 Leaderboard</h3>
+            <div id="leaderboard-content" class="score-grid"></div>
         </div>
-        <button id="btn-naar-casus" class="btn hidden" onclick="goToScreen(4)" style="background:var(--correct)">Naar de Casus (PV Chaos) →</button>
+        <button id="btn-naar-casus" class="btn hidden" onclick="goToScreen(4)" style="background:var(--correct)">Naar de Casus →</button>
     </div>
 
     <div id="screen-4" class="hidden">
-        <h1>PV Chaos: Parkeerplaats A2</h1>
-        <div class="oc-melding">
-            <strong>[MELDING] Eenheid <span class="class-name"></span>:</strong> Verdachte Peugeot 5008. Bestuurder overlaadt goederen uit verborgen ruimte.
-        </div>
+        <h1>PV Chaos: De Kade</h1>
+        <div class="oc-melding">Eenheid <span class="user-display"></span>: Onderbouw uw handelingen met de juiste wetsartikelen!</div>
         
         <div class="evidence-grid">
-            <img src="Schermafbeelding 2026-04-21 112952.jpg">
-            <img src="Schermafbeelding 2026-04-21 112910.jpg">
-            <img src="Schermafbeelding 2026-04-21 113011.jpg">
-            <img src="Schermafbeelding 2026-04-21 113050.jpg">
+            <img src="Schermafbeelding 2026-04-21 112952.jpg"><img src="Schermafbeelding 2026-04-21 112910.jpg">
+            <img src="Schermafbeelding 2026-04-21 113011.jpg"><img src="Schermafbeelding 2026-04-21 113050.jpg">
         </div>
 
         <div class="astma-layout">
@@ -136,17 +116,15 @@
                 <div class="drop-zone" data-fase="Af" ondrop="dropPV(event)" ondragover="allowDrop(event)"><div class="zone-header">AFHANDELING</div></div>
             </div>
         </div>
-        <div id="pv-feed" style="margin-top:30px;">
-            <h2>Livefeed Eenheid <span class="class-name"></span></h2>
-        </div>
+        <div id="pv-feed" style="margin-top:20px;"></div>
     </div>
 </div>
 
 <script>
-    let role = "";
+    let userName = "";
+    let userClass = "";
     let currentDrugIndex = -1;
     let scores = {};
-    const klassen = ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "Juliet", "Kilo", "Lima", "Mike"];
 
     const drugs = [
         { name: "Cocaïne", target: "lijst-1", hint: "Wit, kristalachtig poeder. Vaak verpakt in 'ponypacks' of gesealde envelopjes. Ruikt chemisch." },
@@ -156,19 +134,22 @@
         { name: "Heroïne", target: "lijst-1", hint: "Bruinachtig poeder of korrels. Vaak aangetroffen met aluminiumfolie en aanstekers." }
     ];
 
+    // DE CHAOS TEKSTEN IN OORSPRONKELIJKE STAAT (MET FOUTEN)
     const pvData = [
-        {f: "A", l: "Melding", t: "Ik kreeg een melding van de meldkamer over een verdachte Peugeot 5008 op de A2."},
-        {f: "S", l: "Voertuig", t: "Ik zag het voertuig staan. Het was een Peugeot 5008. De kofferbak stond open."},
-        {f: "T", l: "Vondst", t: "Ik trok de bekleding in de kofferbak los en zag een verborgen ruimte met pakketten."},
-        {f: "M", l: "Beslag", t: "Ik heb de aangetroffen blokken witte poeder in beslag genomen voor onderzoek."},
-        {f: "Af", l: "Gevolg", t: "Ik heb de verdachte de cautie gegeven en overgebracht naar het bureau."}
+        {f: "A", t: "maar de schermen eerst inlog tweedst opium wet derdst opimkwis viertst pv chaos?"},
+        {f: "S", t: "Ik zag de donkere Peugeot 5008 (foto 1) staan. De kofferbak was deels geopend."},
+        {f: "T", t: "Bij controle van de kofferbak zag ik een verborgen ruimte achter de bekleding (foto 4)."},
+        {f: "M", t: "Ik heb op grond van de Opiumwet de witte pakketten in beslag genomen."},
+        {f: "Af", t: "De verdachte is aangehouden en overgebracht naar cellencomplex Houten."}
     ];
 
     function login() {
-        role = document.getElementById('nato-class').value;
-        if(!role) return alert("Kies een klas.");
-        if(role === "DOCENT") document.getElementById('admin-panel').classList.remove('hidden');
-        document.querySelectorAll('.class-name').forEach(el => el.innerText = role);
+        userName = document.getElementById('student-name').value;
+        userClass = document.getElementById('nato-class').value;
+        if(!userName || !userClass) return alert("Vul uw naam en klas in.");
+        
+        if(userClass === "DOCENT") document.getElementById('admin-panel').classList.remove('hidden');
+        document.querySelectorAll('.user-display').forEach(el => el.innerText = userName + " (" + userClass + ")");
         initScores();
         goToScreen(2);
     }
@@ -176,7 +157,7 @@
     function initScores() {
         const container = document.getElementById('leaderboard-content');
         container.innerHTML = "";
-        klassen.forEach(k => {
+        ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "Juliet", "Kilo", "Lima", "Mike"].forEach(k => {
             scores[k] = 0;
             container.innerHTML += `<div class="score-row">${k}<strong id="score-${k}">0</strong></div>`;
         });
@@ -191,11 +172,7 @@
     function triggerNextDrug() {
         currentDrugIndex++;
         if(currentDrugIndex < drugs.length) {
-            const area = document.getElementById('active-drug-area');
-            area.innerHTML = `<div class="drug-card" draggable="true" ondragstart="drag(event)" id="current-drug">
-                <small>KENMERKEN:</small><br>${drugs[currentDrugIndex].hint}
-                <div id="ident-name" style="display:none; color:green; margin-top:10px;">IDENTIFICATIE: ${drugs[currentDrugIndex].name}</div>
-            </div>`;
+            document.getElementById('active-drug-area').innerHTML = `<div class="drug-card" draggable="true" ondragstart="drag(event)" id="current-drug"><small>KENMERKEN:</small><br>${drugs[currentDrugIndex].hint}</div>`;
             document.getElementById('kwis-status').innerText = "Sleep de drug naar de juiste lijst!";
         } else {
             alert("Kwis voltooid!");
@@ -209,41 +186,39 @@
     function dropKwis(ev) {
         ev.preventDefault();
         if(ev.currentTarget.id === drugs[currentDrugIndex].target) {
-            document.getElementById('ident-name').style.display = 'block';
-            if(role !== "DOCENT") {
-                scores[role]++;
-                document.getElementById('score-' + role).innerText = scores[role];
+            if(userClass !== "DOCENT") {
+                scores[userClass]++;
+                document.getElementById('score-' + userClass).innerText = scores[userClass];
             }
-            setTimeout(() => { document.getElementById('active-drug-area').innerHTML = ""; }, 1000);
+            document.getElementById('active-drug-area').innerHTML = "<div style='color:green; font-weight:bold;'>✔ CORRECT: " + drugs[currentDrugIndex].name + "</div>";
         } else { alert("Onjuist!"); }
     }
 
     function loadChaosItems() {
         const container = document.getElementById('chaos-items');
-        container.innerHTML = "<h3>Chaos-teksten</h3>";
+        container.innerHTML = "<h3>Chaos-teksten</h3><p><small>Sleep naar ASTMA en verbeter de tekst.</small></p>";
         pvData.forEach((item, i) => {
-            const div = document.createElement('div');
-            div.className = 'drag-item';
-            div.draggable = true;
-            div.id = 'pv-' + i;
-            div.innerHTML = `<strong>Onderdeel ${i+1}</strong><textarea id="ta-${i}">${item.t}</textarea>`;
-            div.ondragstart = (ev) => {
-                ev.dataTransfer.setData("fase", item.f);
-                ev.dataTransfer.setData("txt", document.getElementById('ta-'+i).value);
-                ev.dataTransfer.setData("id", ev.target.id);
-            };
-            container.appendChild(div);
+            container.innerHTML += `<div class="drag-item" draggable="true" ondragstart="dragPV(event, '${item.f}', 'ta-${i}')" id="pv-${i}">
+                <textarea id="ta-${i}">${item.t}</textarea>
+            </div>`;
         });
+    }
+
+    function dragPV(ev, fase, taId) {
+        ev.dataTransfer.setData("fase", fase);
+        ev.dataTransfer.setData("txt", document.getElementById(taId).value);
+        ev.dataTransfer.setData("id", ev.target.id);
     }
 
     function dropPV(ev) {
         ev.preventDefault();
-        const f = ev.dataTransfer.getData("fase");
-        if(ev.currentTarget.dataset.fase === f || role === "DOCENT") {
+        const zoneFase = ev.currentTarget.dataset.fase;
+        const itemFase = ev.dataTransfer.getData("fase");
+        if(zoneFase === itemFase || userClass === "DOCENT") {
             ev.currentTarget.innerHTML += `<div style="color:green; font-size:10px;">✔ Geplaatst</div>`;
             document.getElementById(ev.dataTransfer.getData("id")).style.display = 'none';
             const feed = document.getElementById('pv-feed');
-            feed.innerHTML = `<div class="feed-card"><strong>${role}</strong>: ${ev.dataTransfer.getData("txt")}</div>` + feed.innerHTML;
+            feed.innerHTML = `<div class="feed-card"><strong>${userName} (${userClass}) - Fase ${zoneFase}</strong><p>${ev.dataTransfer.getData("txt")}</p></div>` + feed.innerHTML;
         } else { alert("Verkeerde ASTMA fase!"); }
     }
 </script>
