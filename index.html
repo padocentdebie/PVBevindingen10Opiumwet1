@@ -13,7 +13,9 @@
         /* Admin & Leaderboard */
         #admin-panel { background: #333; color: white; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .leaderboard { background: #fff; border: 2px solid var(--police-blue); padding: 15px; border-radius: 8px; margin-top: 20px; }
-        .score-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee; }
+        .score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 10px; }
+        .score-row { background: #f8f9fa; padding: 8px; border: 1px solid #eee; border-radius: 4px; text-align: center; }
+        .score-row strong { color: var(--police-blue); display: block; font-size: 1.2em; }
 
         h1, h2 { color: var(--police-blue); border-bottom: 3px solid var(--police-blue); padding-bottom: 5px; }
         .btn { background: var(--police-blue); color: white; padding: 12px 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-transform: uppercase; margin: 5px; }
@@ -30,7 +32,6 @@
         .oc-melding { background: #1a1a1a; color: #00ff00; padding: 15px; font-family: monospace; margin-bottom: 20px; border-left: 5px solid var(--gold); }
         .evidence-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
         .evidence-grid img { width: 100%; border-radius: 4px; border: 1px solid #ccc; transition: 0.3s; }
-        .evidence-grid img:hover { transform: scale(1.1); z-index: 10; }
         
         .astma-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
         .chaos-box { background: #f8f9fa; padding: 15px; border: 1px solid #ddd; max-height: 600px; overflow-y: auto; }
@@ -38,17 +39,15 @@
         textarea { width: 100%; height: 70px; margin-top: 5px; border: 1px solid #ccc; font-size: 12px; resize: none; padding: 5px; box-sizing: border-box; }
         .drop-zone { background: #fff; border: 2px solid #ddd; padding: 10px; margin-bottom: 10px; min-height: 100px; }
         .zone-header { font-weight: bold; font-size: 12px; color: var(--police-blue); margin-bottom: 5px; text-transform: uppercase; }
-        
         .feed-card { border-left: 6px solid var(--police-blue); background: #fff; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
 
 <div id="admin-panel" class="hidden">
-    <strong>👨‍🏫 DOCENTEN CONTROLES</strong>
+    <strong>👨‍🏫 REGIEPANEEL</strong>
     <div>
-        <button class="btn btn-next-drug" onclick="triggerNextDrug()">🔓 VOLGENDE DRUG</button>
-        <button class="btn" style="background:#555; font-size:10px;" onclick="goToScreen(4)">Skip naar Casus</button>
+        <button class="btn btn-next-drug" onclick="triggerNextDrug()">🔓 VOLGENDE DRUG VRIJGEVEN</button>
         <button class="btn btn-reset" onclick="location.reload()">RESET MODULE</button>
     </div>
 </div>
@@ -56,24 +55,33 @@
 <div class="container">
     <div id="screen-1" style="text-align: center;">
         <h1>Toegang Politiesysteem</h1>
-        <p>Log in om de training "Operationele Bevoegdheden Opiumwet" te starten.</p>
-        <select id="nato-class" style="padding: 10px; width: 250px; margin-bottom: 10px;">
+        <p>Selecteer uw rol of klas om te beginnen:</p>
+        <select id="nato-class" style="padding: 10px; width: 280px; margin-bottom: 10px;">
             <option value="">-- Maak een keuze --</option>
-            <option value="DOCENT">👨‍🏫 DOCENT</option>
-            <option value="Alpha">Klas Alpha</option>
-            <option value="Bravo">Klas Bravo</option>
-            <option value="Charlie">Klas Charlie</option>
-            <option value="Delta">Klas Delta</option>
+            <option value="DOCENT">👨‍🏫 DOCENT / ADMIN</option>
+            <optgroup label="NATO Klassen">
+                <option value="Alpha">Alpha</option>
+                <option value="Bravo">Bravo</option>
+                <option value="Charlie">Charlie</option>
+                <option value="Delta">Delta</option>
+                <option value="Echo">Echo</option>
+                <option value="Foxtrot">Foxtrot</option>
+                <option value="Golf">Golf</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Juliet">Juliet</option>
+                <option value="Kilo">Kilo</option>
+                <option value="Lima">Lima</option>
+                <option value="Mike">Mike</option>
+            </optgroup>
         </select><br>
         <button class="btn" onclick="login()">Inloggen</button>
     </div>
 
     <div id="screen-2" class="hidden">
-        <h1>Kennis: Artikel 9 Opiumwet</h1>
+        <h1>Bevoegdheden Art. 9 Opiumwet</h1>
         <div style="background: white; padding: 20px; border-left: 10px solid var(--police-blue); margin-bottom: 20px;">
-            <p>Onthoud de drie belangrijkste bevoegdheden:</p>
             <ul>
-                <li><strong>Lid 1:</strong> Toegang tot plaatsen en vervoermiddelen (bij vermoeden).</li>
+                <li><strong>Lid 1:</strong> Toegang tot plaatsen en vervoermiddelen.</li>
                 <li><strong>Lid 2:</strong> Onderzoek aan kleding (bij ernstige bezwaren).</li>
                 <li><strong>Lid 3:</strong> Inbeslagneming van voorwerpen.</li>
             </ul>
@@ -82,49 +90,43 @@
     </div>
 
     <div id="screen-3" class="hidden">
-        <h1>Opiumkwis: Herken de Drug</h1>
-        <p id="kwis-status">Wacht tot de docent een drug vrijgeeft...</p>
+        <h1>Live Opiumkwis</h1>
+        <p id="kwis-status">Wacht op instructies van de docent...</p>
         
         <div class="puzzle-grid">
             <div class="col" id="lijst-1" ondrop="dropKwis(event)" ondragover="allowDrop(event)">
                 <div class="zone-header">LIJST I (HARDDRUGS)</div>
             </div>
-            
             <div id="active-drug-area"></div>
-            
             <div class="col" id="lijst-2" ondrop="dropKwis(event)" ondragover="allowDrop(event)">
                 <div class="zone-header">LIJST II (SOFTDRUGS)</div>
             </div>
         </div>
 
         <div class="leaderboard">
-            <h3>🏆 Leaderboard: Correcte Antwoorden</h3>
-            <div id="leaderboard-content">
-                <div class="score-row"><span>Klas Alpha</span><strong id="score-Alpha">0</strong></div>
-                <div class="score-row"><span>Klas Bravo</span><strong id="score-Bravo">0</strong></div>
-                <div class="score-row"><span>Klas Charlie</span><strong id="score-Charlie">0</strong></div>
-            </div>
+            <h3>🏆 Real-time Scorebord</h3>
+            <div id="leaderboard-content" class="score-grid">
+                </div>
         </div>
         <button id="btn-naar-casus" class="btn hidden" onclick="goToScreen(4)" style="background:var(--correct)">Naar de Casus (PV Chaos) →</button>
     </div>
 
     <div id="screen-4" class="hidden">
-        <h1>PV Chaos: De Kademuur (A2)</h1>
+        <h1>PV Chaos: Parkeerplaats A2</h1>
         <div class="oc-melding">
-            <strong>[OC MELDING] Klas <span class="class-name"></span>:</strong> Donkere Peugeot 5008 op parkeerplaats. Melder ziet bestuurder goederen uit verborgen ruimte halen.
+            <strong>[MELDING] Eenheid <span class="class-name"></span>:</strong> Verdachte Peugeot 5008. Bestuurder overlaadt goederen uit verborgen ruimte.
         </div>
         
         <div class="evidence-grid">
-            <img src="Schermafbeelding 2026-04-21 112952.jpg" title="Voertuig Peugeot">
-            <img src="Schermafbeelding 2026-04-21 112910.jpg" title="Kofferbak controle">
-            <img src="Schermafbeelding 2026-04-21 113011.jpg" title="Detail bekleding">
-            <img src="Schermafbeelding 2026-04-21 113050.jpg" title="Verborgen ruimte aangetroffen">
+            <img src="Schermafbeelding 2026-04-21 112952.jpg">
+            <img src="Schermafbeelding 2026-04-21 112910.jpg">
+            <img src="Schermafbeelding 2026-04-21 113011.jpg">
+            <img src="Schermafbeelding 2026-04-21 113050.jpg">
         </div>
 
         <div class="astma-layout">
             <div class="chaos-box" id="chaos-items">
                 <h3>Chaos-teksten</h3>
-                <p><small>Herschrijf en onderbouw de handelingen. Sleep daarna naar ASTMA.</small></p>
             </div>
             <div class="astma-zones">
                 <div class="drop-zone" data-fase="A" ondrop="dropPV(event)" ondragover="allowDrop(event)"><div class="zone-header">AANLEIDING</div></div>
@@ -135,7 +137,7 @@
             </div>
         </div>
         <div id="pv-feed" style="margin-top:30px;">
-            <h2>Livefeed Klas <span class="class-name"></span></h2>
+            <h2>Livefeed Eenheid <span class="class-name"></span></h2>
         </div>
     </div>
 </div>
@@ -143,30 +145,41 @@
 <script>
     let role = "";
     let currentDrugIndex = -1;
-    let scores = { Alpha: 0, Bravo: 0, Charlie: 0 };
+    let scores = {};
+    const klassen = ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "Juliet", "Kilo", "Lima", "Mike"];
 
     const drugs = [
         { name: "Cocaïne", target: "lijst-1", hint: "Wit, kristalachtig poeder. Vaak verpakt in 'ponypacks' of gesealde envelopjes. Ruikt chemisch." },
         { name: "Hennep / Hasj", target: "lijst-2", hint: "Groen/bruine plantdelen of samengeperste harsblokjes. Zeer sterke, herkenbare organische geur." },
-        { name: "MDMA (XTC)", target: "lijst-1", hint: "Gekleurde tabletten met een logo (bijv. een doodskop) of kristallen. Smaakt erg bitter." },
+        { name: "MDMA (XTC)", target: "lijst-1", hint: "Gekleurde tabletten met een logo of kristallen. Smaakt erg bitter." },
         { name: "Lachgas", target: "lijst-2", hint: "Zilverkleurige patronen of grote gasflessen. Wordt vaak icm ballonnen aangetroffen." },
         { name: "Heroïne", target: "lijst-1", hint: "Bruinachtig poeder of korrels. Vaak aangetroffen met aluminiumfolie en aanstekers." }
     ];
 
     const pvData = [
-        {f: "A", l: "A", t: "Ik kreeg een melding van de meldkamer over een verdachte Peugeot 5008 op de A2."},
-        {f: "S", l: "S", t: "Ik zag het voertuig staan. Het was een Peugeot 5008. De kofferbak stond open."},
-        {f: "T", l: "T", t: "Ik trok de bekleding in de kofferbak los en zag een verborgen ruimte met pakketten."},
-        {f: "M", l: "M", t: "Ik heb de aangetroffen blokken witte poeder in beslag genomen voor onderzoek."},
-        {f: "Af", l: "Af", t: "Ik heb de verdachte de cautie gegeven en overgebracht naar het bureau."}
+        {f: "A", l: "Melding", t: "Ik kreeg een melding van de meldkamer over een verdachte Peugeot 5008 op de A2."},
+        {f: "S", l: "Voertuig", t: "Ik zag het voertuig staan. Het was een Peugeot 5008. De kofferbak stond open."},
+        {f: "T", l: "Vondst", t: "Ik trok de bekleding in de kofferbak los en zag een verborgen ruimte met pakketten."},
+        {f: "M", l: "Beslag", t: "Ik heb de aangetroffen blokken witte poeder in beslag genomen voor onderzoek."},
+        {f: "Af", l: "Gevolg", t: "Ik heb de verdachte de cautie gegeven en overgebracht naar het bureau."}
     ];
 
     function login() {
         role = document.getElementById('nato-class').value;
-        if(!role) return alert("Selecteer een klas of docent.");
+        if(!role) return alert("Kies een klas.");
         if(role === "DOCENT") document.getElementById('admin-panel').classList.remove('hidden');
         document.querySelectorAll('.class-name').forEach(el => el.innerText = role);
+        initScores();
         goToScreen(2);
+    }
+
+    function initScores() {
+        const container = document.getElementById('leaderboard-content');
+        container.innerHTML = "";
+        klassen.forEach(k => {
+            scores[k] = 0;
+            container.innerHTML += `<div class="score-row">${k}<strong id="score-${k}">0</strong></div>`;
+        });
     }
 
     function goToScreen(num) {
@@ -175,23 +188,17 @@
         if(num === 4) loadChaosItems();
     }
 
-    /* KWIS LOGICA */
     function triggerNextDrug() {
         currentDrugIndex++;
         if(currentDrugIndex < drugs.length) {
             const area = document.getElementById('active-drug-area');
-            const d = drugs[currentDrugIndex];
-            area.innerHTML = `
-                <div class="drug-card" draggable="true" ondragstart="drag(event)" id="current-drug">
-                    <div style="font-size: 0.7em; color: #666; margin-bottom: 5px;">KENMERKEN:</div>
-                    <div id="drug-description">${d.hint}</div>
-                    <div id="drug-name-shown" style="margin-top:10px; color: var(--police-blue); font-weight:bold; display:none;">
-                        IDENTIFICATIE: ${d.name}
-                    </div>
-                </div>`;
-            document.getElementById('kwis-status').innerText = "Drug is vrijgegeven! Sleep naar de juiste lijst.";
+            area.innerHTML = `<div class="drug-card" draggable="true" ondragstart="drag(event)" id="current-drug">
+                <small>KENMERKEN:</small><br>${drugs[currentDrugIndex].hint}
+                <div id="ident-name" style="display:none; color:green; margin-top:10px;">IDENTIFICATIE: ${drugs[currentDrugIndex].name}</div>
+            </div>`;
+            document.getElementById('kwis-status').innerText = "Sleep de drug naar de juiste lijst!";
         } else {
-            alert("Einde van de kwis.");
+            alert("Kwis voltooid!");
             document.getElementById('btn-naar-casus').classList.remove('hidden');
         }
     }
@@ -201,23 +208,16 @@
 
     function dropKwis(ev) {
         ev.preventDefault();
-        const correctTarget = drugs[currentDrugIndex].target;
-        if(ev.currentTarget.id === correctTarget) {
-            document.getElementById('drug-name-shown').style.display = 'block';
-            setTimeout(() => {
-                alert("Correct! Dit is " + drugs[currentDrugIndex].name);
-                if(role !== "DOCENT" && scores[role] !== undefined) {
-                    scores[role]++;
-                    document.getElementById('score-' + role).innerText = scores[role];
-                }
-                document.getElementById('active-drug-area').innerHTML = "";
-            }, 500);
-        } else {
-            alert("Onjuist! Kijk nog eens goed naar de lijst-indeling.");
-        }
+        if(ev.currentTarget.id === drugs[currentDrugIndex].target) {
+            document.getElementById('ident-name').style.display = 'block';
+            if(role !== "DOCENT") {
+                scores[role]++;
+                document.getElementById('score-' + role).innerText = scores[role];
+            }
+            setTimeout(() => { document.getElementById('active-drug-area').innerHTML = ""; }, 1000);
+        } else { alert("Onjuist!"); }
     }
 
-    /* PV CHAOS LOGICA */
     function loadChaosItems() {
         const container = document.getElementById('chaos-items');
         container.innerHTML = "<h3>Chaos-teksten</h3>";
@@ -226,7 +226,6 @@
             div.className = 'drag-item';
             div.draggable = true;
             div.id = 'pv-' + i;
-            div.dataset.fase = item.f;
             div.innerHTML = `<strong>Onderdeel ${i+1}</strong><textarea id="ta-${i}">${item.t}</textarea>`;
             div.ondragstart = (ev) => {
                 ev.dataTransfer.setData("fase", item.f);
@@ -239,22 +238,13 @@
 
     function dropPV(ev) {
         ev.preventDefault();
-        const zoneFase = ev.currentTarget.dataset.fase;
-        const itemFase = ev.dataTransfer.getData("fase");
-        const txt = ev.dataTransfer.getData("txt");
-        const id = ev.dataTransfer.getData("id");
-
-        if(zoneFase === itemFase || role === "DOCENT") {
-            ev.currentTarget.innerHTML += `<div style="color:green; font-size:10px;">✔ Item geplaatst</div>`;
-            document.getElementById(id).style.display = 'none';
+        const f = ev.dataTransfer.getData("fase");
+        if(ev.currentTarget.dataset.fase === f || role === "DOCENT") {
+            ev.currentTarget.innerHTML += `<div style="color:green; font-size:10px;">✔ Geplaatst</div>`;
+            document.getElementById(ev.dataTransfer.getData("id")).style.display = 'none';
             const feed = document.getElementById('pv-feed');
-            const card = document.createElement('div');
-            card.className = 'feed-card';
-            card.innerHTML = `<strong>Klas ${role} - Fase ${zoneFase}</strong><p>${txt}</p>`;
-            feed.prepend(card);
-        } else {
-            alert("Dit onderdeel hoort in een andere ASTMA fase thuis.");
-        }
+            feed.innerHTML = `<div class="feed-card"><strong>${role}</strong>: ${ev.dataTransfer.getData("txt")}</div>` + feed.innerHTML;
+        } else { alert("Verkeerde ASTMA fase!"); }
     }
 </script>
 
