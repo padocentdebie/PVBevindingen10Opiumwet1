@@ -79,9 +79,14 @@
         <div id="content-info">
             <div style="background:#eef2ff; padding:25px; border-radius:20px; border-left:8px solid var(--police-blue);">
                 <h3>Artikel 9 Opiumwet</h3>
-                <p><strong>Lid 1:</strong> Opsporingsambtenaren hebben toegang tot alle plaatsen (niet zijnde woningen) en kunnen vervoermiddelen onderzoeken.</p>
-                <p><strong>Lid 2:</strong> Schouwing van goederen en verpakkingen.</p>
-                <p><strong>Lid 3:</strong> Inbeslagneming van middelen en vervoermiddelen.</p>
+                <p><strong>Lid 1:</strong> Opsporingsambtenaren hebben toegang tot:</p>
+                <ul style="font-size: 0.95rem; line-height: 1.5;">
+                    <li><strong>a.</strong> Vervoermiddelen (incl. woongedeelten) bij bekendheid of redelijk vermoeden van aanwezigheid van middelen uit Lijst I of II.</li>
+                    <li><strong>b.</strong> Plaatsen waar een overtreding van deze wet gepleegd wordt of redelijkerwijze vermoed kan worden.</li>
+                </ul>
+                <p><strong>Lid 2:</strong> Bevoegdheid tot onderzoek aan de kleding bij een verdachte van een misdrijf uit deze wet, bij bestaan van ernstige bezwaren.</p>
+                <p><strong>Lid 3:</strong> Te allen tijde bevoegd tot inbeslagneming van vatbare voorwerpen; zij kunnen daartoe de uitlevering vorderen.</p>
+                <p><strong>Lid 4:</strong> De (hulp)officier kan medewerking aan urineonderzoek vorderen bij een aangehouden verdachte die het land binnenkomt of verlaat, ter aantonen van middelen uit Lijst I, Ia of II.</p>
                 <p><em>Vergeet nooit de burger te informeren dat u op basis van Artikel 9 Ow handelt!</em></p>
             </div>
             <button class="btn" style="margin-top:20px;" onclick="goToScreen(3)">Naar Maastricht Video</button>
@@ -147,7 +152,6 @@
 </div>
 
 <script>
-    // Uitgebreide lijst met 20 items verdeeld over I, IA en II
     const drugCards = [
         {txt: "Wit kristallijn poeder, vaak gesnoven, verhoogt hartslag aanzienlijk.", list: "I", name: "Cocaïne"},
         {txt: "Gekleurde pillen met logo's, zorgt voor euforie en verbondenheid op feesten.", list: "I", name: "MDMA (XTC)"},
@@ -244,7 +248,6 @@
         } 
     }
 
-    // ASTMA Logica blijft ongewijzigd
     function loadLekkade() {
         const pool = document.getElementById('chaos-pool'); pool.innerHTML = "<h3>Sleep de onderdelen naar de juiste ASTMA-fase</h3>";
         originalChunks.forEach((c, i) => {
